@@ -1,12 +1,14 @@
-import spider from './components/Spider';
-import approval from './components/Approval';
-import category from './components/Category';
+import spider from './pages/Spider';
+import approval from './pages/Approval';
+import category from './pages/Category';
+import task from './pages/Task';
 
 
 const routes = [
   { path: '/', component: spider },
   { path: '/approval', component: approval },
-  { path: '/category', component: category }
+  { path: '/category', component: category },
+  { path: '/task', component: task },
 ]
 
 export default routes

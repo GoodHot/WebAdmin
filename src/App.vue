@@ -8,17 +8,21 @@
       >
         <div class="logo" />
         <a-menu theme="dark" mode="inline" :defaultSelectedKeys="['1']">
-          <a-menu-item key="1">
+          <a-menu-item key="spider">
             <a-icon type="download" />
             <span><router-link to="/">爬虫管理</router-link></span>
           </a-menu-item>
-          <a-menu-item key="2">
+          <a-menu-item key="approval">
             <a-icon type="check-square-o" />
             <span><router-link to="/approval">内容审核</router-link></span>
           </a-menu-item>
-          <a-menu-item key="3">
+          <a-menu-item key="category">
             <a-icon type="bars" />
             <span><router-link to="/category">分类管理</router-link></span>
+          </a-menu-item>
+          <a-menu-item key="task">
+            <a-icon type="bars" />
+            <span><router-link to="/task">任务管理</router-link></span>
           </a-menu-item>
         </a-menu>
       </a-layout-sider>
@@ -40,7 +44,12 @@
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  data(){
+    return {
+      collapsed: false,
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -51,7 +60,7 @@ export default {
   }
 }
 #components-layout-demo-custom-trigger {
-  height: 100vh;
+  // height: 100vh;
   .trigger {
     font-size: 18px;
     line-height: 64px;
