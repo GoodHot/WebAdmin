@@ -12,14 +12,14 @@
                   :labelCol="{ span: 3 }"
                   :wrapperCol="{ span: 21 }"
                 >
-                  <a-input :defaultValue="this.post.translateTitle" v-model="title"/>
+                  <a-input v-model="title"/>
                 </a-form-item>
                 <a-form-item
                   label='来源'
                   :labelCol="{ span: 3 }"
                   :wrapperCol="{ span: 21 }"
                 >
-                  <a-input :defaultValue="this.post.source"/>
+                  <a-input v-model="this.post.source"/>
                 </a-form-item>
               </a-form>
               <Media v-for="media of post.medias" v-bind:key="media.url" :media="media"></Media>
@@ -50,6 +50,7 @@ export default {
     getPost(){
       let self = this;
       api.archive(1, function(post){
+        self.title = post.translateTitle;
         self.post = post;
       });
     },
