@@ -1,35 +1,28 @@
 <template>
   <div>
-    <a-button class="editable-add-btn" @click="showAddModel">新建分类</a-button>
-    <a-table :columns="columns" :dataSource="data" :pagination="false">
-      <span slot="isShow" slot-scope="col">
-        <a-badge v-if="col.isShow" status="success" text="显示"/>
-        <a-badge v-else status="error" text="隐藏"/>
-      </span>
-      <span slot="icon" slot-scope="col">
-        <a-avatar :src="col.icon"/>
+    <a-button class="editable-add-btn" @click="showAddModel">新建管理员</a-button>
+    <a-table :columns="columns" :dataSource="data" :pagination="pagination" @change="handleTableChange">
+      <span slot="avatar" slot-scope="col">
+        <a-avatar :src="col.avatar"/>
       </span>
       <span slot="opt" slot-scope="col">
-        <a href="javascript:;">编辑</a>
+        <a :href="col.id">编辑</a>
         <a-divider type="vertical"/>
         <a href="javascript:;">删除</a>
-        <a-divider type="vertical"/>
-        <a v-if="col.isShow" href="javascript:;">隐藏</a>
-        <a v-else href="javascript:;">显示</a>
       </span>
     </a-table>
-    <a-modal title="新增分类" v-model="visible" @ok="addCategory">
+    <a-modal title="新建管理员" v-model="visible" @ok="addAdmin">
       <a-form >
-        <a-form-item label="名称" :labelCol="{ span: 6 }" :wrapperCol="{ span: 14 }">
-          <a-input v-model="add.name" />
+        <a-form-item label="昵称" :labelCol="{ span: 6 }" :wrapperCol="{ span: 14 }">
+          <a-input v-model="edit.nickname" />
         </a-form-item>
-        <a-form-item label="英文名" :labelCol="{ span: 6 }" :wrapperCol="{ span: 14 }">
-          <a-input v-model="add.ename"/>
+        <a-form-item label="用户名" :labelCol="{ span: 6 }" :wrapperCol="{ span: 14 }">
+          <a-input v-model="edit.username"/>
         </a-form-item>
-        <a-form-item label="排序" :labelCol="{ span: 6 }" :wrapperCol="{ span: 14 }">
-          <a-input-number :min="10" :max="9999" step="10" v-model="add.sort"  />
+        <a-form-item label="密码" :labelCol="{ span: 6 }" :wrapperCol="{ span: 14 }">
+          <a-input v-model="edit.password"/>
         </a-form-item>
-        <a-form-item label="图标" :labelCol="{ span: 6 }" :wrapperCol="{ span: 14 }">
+        <a-form-item label="头像" :labelCol="{ span: 6 }" :wrapperCol="{ span: 14 }">
           <a-upload
             name="file"
             listType="picture-card"
@@ -45,9 +38,6 @@
                 <div class="ant-upload-text">Upload</div>
             </div>
           </a-upload>
-        </a-form-item>
-        <a-form-item label="是否显示" :labelCol="{ span: 6 }" :wrapperCol="{ span: 14 }">
-          <a-switch v-model="add.isShow" />
         </a-form-item>
       </a-form>
     </a-modal>
@@ -74,36 +64,37 @@ const columns = [
     title: "id",
     dataIndex: "id",
     key: "id",
-    width: "18%"
-  },
-  {
-    title: "名称",
-    dataIndex: "name",
-    key: "name",
     width: "15%"
   },
   {
-    title: "英文名",
-    dataIndex: "ename",
-    key: "ename",
-    width: "15%"
-  },
-  {
-    title: "排序",
-    dataIndex: "sort",
-    key: "sort",
-    width: "15%"
-  },
-  {
-    title: "图标",
-    key: "icon",
-    scopedSlots: { customRender: "icon" },
+    title: "头像",
+    key: "avatar",
+    scopedSlots: { customRender: "avatar" },
     width: "10%"
   },
   {
-    title: "是否显示",
-    key: "isShow",
-    scopedSlots: { customRender: "isShow" }
+    title: "昵称",
+    dataIndex: "nickname",
+    key: "nickname",
+    width: "10%"
+  },
+  {
+    title: "用户名",
+    dataIndex: "username",
+    key: "username",
+    width: "10%"
+  },
+  {
+    title: "创建时间",
+    dataIndex: "created",
+    key: "created",
+    width: "20%"
+  },
+  {
+    title: "修改时间",
+    dataIndex: "modified",
+    key: "modified",
+    width: "20%"
   },
   {
     title: "操作",
@@ -120,42 +111,45 @@ function getBase64 (img, callback) {
 
 export default {
   mounted() {
-    this.getCategory();
+    this.getAdmin();
   },
   data() {
     return {
       columns: columns,
+      pagination: {},
+      handleTableChange: function(){},
       data: [],
       visible: false,
-      add: {
-        name: '',
-        ename: '',
-        sort: 0,
-        icon: '',
-        isShow: true
+      edit: {
+        nickname: '',
+        username: '',
+        password: 0,
+        avatar: ''
       },
       loading: false,
       imageUrl: '',
     };
   },
   methods: {
-    getCategory() {
+    getAdmin() {
       let self = this;
-      api.category(function(category) {
-        self.data = category;
+      api.pager('/admin/page/', 1, function(ds, pg, change){
+        self.data =ds;
+        self.pagination = pg;
+        self.handleTableChange = change;
       });
     },
     showAddModel() {
       this.visible = true;
     },
-    addCategory() {
+    addAdmin() {
       let self = this;
-      http.post('/category', this.add)
+      http.post('/admin', this.edit)
           .then(function(resp){
             if(resp.data.code == 200){
               alert("成功");
               self.visible = false;
-              self.getCategory();
+              self.getAdmin();
             } else {
               alert(resp.data.data);
             }
@@ -170,12 +164,11 @@ export default {
         return
       }
       if (info.file.status === 'done') {
-        // Get this url from response in real world.
         getBase64(info.file.originFileObj, (imageUrl) => {
           this.imageUrl = imageUrl;
           this.loading = false
         })
-        this.add.icon = info.file.response.data;
+        this.edit.avatar = info.file.response.data;
       }
     },
     beforeUpload (file) {
