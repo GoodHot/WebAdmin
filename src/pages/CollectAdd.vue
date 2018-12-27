@@ -114,6 +114,11 @@ export default {
       http.post('collect', param)
           .then(function(resp){
             console.log(resp);
+            if(resp.data.code == 200){
+              alert('添加成功');
+            } else {
+              alert(resp.data.message);
+            }
           });
     },
     setCover(e) {
