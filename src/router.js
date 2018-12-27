@@ -6,6 +6,7 @@ import approval from './pages/Approval';
 import category from './pages/Category';
 import task from './pages/Task';
 import collect from './pages/Collect';
+import collectAdd from './pages/CollectAdd';
 import admin from './pages/Admin';
 
 
@@ -19,6 +20,7 @@ const routes = [
       { path: 'category', component: category },
       { path: 'task', component: task },
       { path: 'collect', component: collect },
+      { path: 'collect/add', component: collectAdd },
       { path: 'admin', component: admin },
     ]
   },

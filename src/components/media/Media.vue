@@ -4,7 +4,7 @@
       <img :src="media.url">
     </div>
     <div v-else-if="media.type == 'VIDEO'" class="video">
-      <video preload="auto" :poster="media.posterUrl" loop="loop" autoplay>
+      <video preload="auto" :poster="media.posterUrl" loop="loop" v-bind:autoplay="!media.notAutoplay">
         <source :src="media.url" type="video/mp4">
       </video>
     </div>
@@ -16,6 +16,9 @@
         width="100%"
         allow="autoplay"
       ></iframe>
+    </div>
+    <div v-else-if="media.type == 'TEXT'" class="text">
+      <p>{{media.text}}</p>
     </div>
   </div>
 </template>
@@ -58,6 +61,12 @@ export default {
         width: 100%;
         height: 350px;
     }
+  }
+  .text {
+    padding: .3rem 1rem;
+    border: 1px dashed #000;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
   }
 }
 </style>
