@@ -8,6 +8,8 @@ import task from './pages/Task';
 import collect from './pages/Collect';
 import collectAdd from './pages/CollectAdd';
 import admin from './pages/Admin';
+import post from './pages/Post';
+import user from './pages/User';
 
 
 const routes = [
@@ -22,6 +24,8 @@ const routes = [
       { path: 'collect', component: collect },
       { path: 'collect/add', component: collectAdd },
       { path: 'admin', component: admin },
+      { path: 'post', component: post },
+      { path: 'user', component: user },
     ]
   },
   {

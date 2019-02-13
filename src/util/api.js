@@ -16,6 +16,12 @@ export default {
                 func(resp.data.data.content);
             })
     },
+    staffUsers(func){
+        http.get('/user/staff-users')
+            .then(function (resp){
+                func(resp.data.data);
+            });
+    },
     admin(func) {
         http.get(`/admin/page/1_10`)
             .then(function (resp) {

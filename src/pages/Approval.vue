@@ -23,6 +23,9 @@
                 </a-form-item>
               </a-form>
               <Media v-for="media of post.medias" v-bind:key="media.url" :media="media"></Media>
+              <div class="staff-user">
+                <a-button v-for="usr of staffUsers" v-bind:key="usr.id" :type="randomStaffUserType(usr.id)">{{usr.nickname}}</a-button>
+              </div>
             </a-card>
           </a-col>
           <a-col :span="6">
@@ -38,20 +41,37 @@ export default {
   mounted(){
     this.getPost();
     this.getCategory();
+    this.getStaffUsers();
   },
   data() {
     return {
       post: {},
       category: [],
-      title: ""
+      title: "",
+      staffUsers: [],
+      randomStaffUser: {}
     }
   },
   methods: {
+    randomStaffUserType(id){
+      return id == this.randomStaffUser.id ? 'primary' : '';
+    },
+    getStaffUsers(){
+      let self = this;
+      api.staffUsers(function(users){
+        self.staffUsers = users;
+        self.getRandomStaffUser();
+      });
+    },
+    getRandomStaffUser(){
+      this.randomStaffUser = this.staffUsers[parseInt(Math.random() * this.staffUsers.length -1 ) + 1]
+    },
     getPost(){
       let self = this;
       api.archive(1, function(post){
         self.title = post.translateTitle;
         self.post = post;
+        self.getRandomStaffUser();
       });
     },
     getCategory(){
@@ -64,7 +84,8 @@ export default {
       let param = {
         id: this.post.id,
         category: category,
-        title: this.title
+        title: this.title,
+        userId: this.randomStaffUser.id
       }
       let self = this;
       http.post('/archive/pass', param)
@@ -93,5 +114,10 @@ export default {
 <style lang="scss">
 .category-btn {
     margin-bottom: 1rem;
+}
+.staff-user {
+  button {
+    margin-right: 0.4rem;
+  }
 }
 </style>

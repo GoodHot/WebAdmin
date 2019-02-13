@@ -26,6 +26,10 @@
               <a-icon type="bars" />
               <span><router-link to="/task">任务管理</router-link></span>
             </a-menu-item>
+            <a-menu-item key="content">
+              <a-icon type="bars" />
+              <span><router-link to="/post">内容列表</router-link></span>
+            </a-menu-item>
           </a-sub-menu>
           <a-menu-item key="collect">
             <a-icon type="copy" />
@@ -34,6 +38,10 @@
           <a-menu-item key="admin">
             <a-icon type="user" />
             <span><router-link to="/admin">管理员</router-link></span>
+          </a-menu-item>
+          <a-menu-item key="user">
+            <a-icon type="team" />
+            <span><router-link to="/user">用户</router-link></span>
           </a-menu-item>
         </a-menu>
       </a-layout-sider>
