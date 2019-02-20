@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-button class="editable-add-btn">
-      <router-link to="/collect/add">新建合集</router-link>
+      <router-link to="/story/add">新建故事</router-link>
     </a-button>
     <a-table :columns="columns" :dataSource="data" :pagination="pagination" @change="handleTableChange">
       <span slot="opt" slot-scope="col">
@@ -79,7 +79,7 @@ const columns = [
 
 export default {
   mounted() {
-    this.getCollect();
+    this.getStory();
   },
   data() {
     return {
@@ -90,9 +90,9 @@ export default {
     };
   },
   methods: {
-    getCollect() {
+    getStory() {
       let self = this;
-      api.pager('/collect/page/', 1, function(ds, pg, change){
+      api.pager('/story/page/', 1, function(ds, pg, change){
         self.data =ds;
         self.pagination = pg;
         self.handleTableChange = change;

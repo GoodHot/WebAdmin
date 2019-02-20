@@ -111,7 +111,7 @@ export default {
         cover: this.cover,
         medias: this.medias
       }
-      http.post('collect', param)
+      http.post('story', param)
           .then(function(resp){
             console.log(resp);
             if(resp.data.code == 200){

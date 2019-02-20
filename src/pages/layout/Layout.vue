@@ -33,7 +33,7 @@
           </a-sub-menu>
           <a-menu-item key="collect">
             <a-icon type="copy" />
-            <span><router-link to="/collect">合集管理</router-link></span>
+            <span><router-link to="/story">故事管理</router-link></span>
           </a-menu-item>
           <a-menu-item key="admin">
             <a-icon type="user" />

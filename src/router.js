@@ -5,8 +5,8 @@ import spider from './pages/Spider';
 import approval from './pages/Approval';
 import category from './pages/Category';
 import task from './pages/Task';
-import collect from './pages/Collect';
-import collectAdd from './pages/CollectAdd';
+import story from './pages/Story';
+import storyAdd from './pages/StoryAdd';
 import admin from './pages/Admin';
 import post from './pages/Post';
 import user from './pages/User';
@@ -21,8 +21,8 @@ const routes = [
       { path: 'approval', component: approval },
       { path: 'category', component: category },
       { path: 'task', component: task },
-      { path: 'collect', component: collect },
-      { path: 'collect/add', component: collectAdd },
+      { path: 'story', component: story },
+      { path: 'story/add', component: storyAdd },
       { path: 'admin', component: admin },
       { path: 'post', component: post },
       { path: 'user', component: user },
