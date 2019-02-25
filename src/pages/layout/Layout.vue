@@ -31,9 +31,13 @@
               <span><router-link to="/post">内容列表</router-link></span>
             </a-menu-item>
           </a-sub-menu>
-          <a-menu-item key="collect">
+          <a-menu-item key="story">
             <a-icon type="copy" />
             <span><router-link to="/story">故事管理</router-link></span>
+          </a-menu-item>
+          <a-menu-item key="collect">
+            <a-icon type="copy" />
+            <span><router-link to="/collect">合集管理</router-link></span>
           </a-menu-item>
           <a-menu-item key="admin">
             <a-icon type="user" />
